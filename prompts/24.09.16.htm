@@ -59,8 +59,17 @@
     // --- 1
     //  '../datasets/titanic.json'
     console.log( '---Top of file---' );
-                  
-    
+    //console.log(d3.json('../datasets/titanic.json') ;
+
+    d3.json('../datasets/titanic.json').then( (data)=> {
+      console.log("promise fulfilled", data);
+      
+   // console.log("When will this print?");
+
+      //what if we make a error? if titanic doesnt exist, primise doenst get fulfilled
+    d3.json('../datasets/titanic.json').then( 
+      (data)=> { console.log("promise fulfilled", data)},
+      (error) => {console.log("error happened", data)};
     
 
     // --- 2
@@ -68,16 +77,22 @@
 
     // 0. Find our SVG and get that ready
     //     We're going to use a new way of padding that makes axes easier
-    // const svg = d3.select('svg#scatterplot');
-    // const width = svg.attr('width');
-    // const height = svg.attr('height');
+    const svg = d3.select('svg#scatterplot');
+    const width = svg.attr('width');
+    const height = svg.attr('height');
     
-    
+    const margins = {top: 10, right: 10, bottom: 50, left: 50};
+    const chartWidth = width - margins.left - margins.right;
+    const chartHeight = height - margins.top - margins.bottom;
+
+    let chartArea = svg.append("g")
+                       .attr("transform", 'translate$({margins.left},$
+                             {margins.top}));
     
     
     // 1. Import some CSV data
     //        .then( function(successfulResult), function(errorMessage) )
-    
+    d3.csv('../datasets/gapminder.csv').then((data) => {
     
             
     // 2. Check for data issues
